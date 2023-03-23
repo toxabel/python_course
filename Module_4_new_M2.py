@@ -13,69 +13,59 @@ index_dict = collections.defaultdict(list)
 values_dict = collections.defaultdict(list)
 
 
-# define a function that returns lowercase letters
-def low_case():
-    return string.ascii_lowercase
+# defain function that create list of dictionaries with random values and keys is letters in lowercase
+def dictionries_list(dictionary_number, key_value_number, top_value_range):
+    # create list of dictionaries from 1 to dictionary_number
+    for d in range(1, dictionary_number):
+        # create a dictionary with random key-value pair from 1 to 9
+        for kv in range(1, key_value_number):
+            # get random letter in lowercase as key and assign number from 1 to 100 as value
+            random_dict[random.choice(string.ascii_lowercase)] = random.randint(1, top_value_range)
+        #print("random_dict: ", random_dict)
+        # add copy of generated random dictionary into list of dictionary
+        list_dicts.append(random_dict.copy())
+    return list_dicts
 
-# create list of dictionaries (from 2 to 10) with random values (1-100) and keys is letters in lowercase
-for d in range(2, 10):
-    # create a dictionary with random key-value pair from 1 to 9
-    for kv in range(1, 10):
-        # get random letter in lowercase from low_case function as key and assign number from 1 to 100 as value
-        random_dict[random.choice(low_case())] = random.randint(1, 101)
-    # print generated random dictionary
-    print("random_dict: ", random_dict)
-    # add copy of generated random dictionary into list of dictionary
-    list_dicts.append(random_dict.copy())
-# print list of dictionaries
-print("list_dicts", list_dicts)
-
-
-# define a function that add new key-value item or and new value for existing key in dictionary
-def append_value(dict_name, dict_key, dict_value):
-    return dict_name[dict_key].append(dict_value)
-
-# get defaultdict object with each key and list with dictionaries indexes that contain value of that key
-# loop through all the dictionaries from the list
-for dict_items in list_dicts:
-    # loop through all key-value from the current dictionary from a list of dictionaries
-    for key, value in dict_items.items():
-        # call function append_value with parameters
-        append_value(index_dict, key, (list_dicts.index(dict_items)))
-# print dictionary with indexes of value for each unique key
-print('index_dict:', index_dict)
+# call function dictionries_list and print list of dictionary with kay-values
+print("list_dicts", dictionries_list(10, 10, 100))
 
 
-# get defaultdict object with each key and list of values from each of dictionaries
-# loop through all the dictionaries from the list
-for dict_items in list_dicts:
-    # loop through all key-value from the current dictionary from a list of dictionaries
-    for key, value in dict_items.items():
-        # call function append_value with parameters
-        append_value(values_dict, key, value)
-# print dictionary with values for each unique key
-print('values_dict:', values_dict)
+def fill_dictionary(dictionary_name):
+    # loop through all the dictionaries from the list
+    for dict_items in list_dicts:
+        # loop through all key-value from the current dictionary from a list of dictionaries
+        for key, value in dict_items.items():
+            # if dictionary name is index_dict
+            if dictionary_name == index_dict:
+                # add new key-value item or and new value for existing key in dictionary
+                dictionary_name[key].append(list_dicts.index(dict_items))
+            # else if dictionary name is values_dict
+            elif dictionary_name == values_dict:
+                # add new key-value item or and new value for existing key in dictionary
+                dictionary_name[key].append(value)
+    return dictionary_name
+
+# call function fill_dictionary with parameter and print results
+print("Dictionary with indexes: ", fill_dictionary(index_dict), '\n', "Dictionary with values: ", fill_dictionary(values_dict))
 
 
-# add key-value in to preassigned dictionary
-def add_key_value(dict_name, dict_key, dict_value):
-    return dict_name.update({dict_key: dict_value})
+# define function that return dictionary with max values for each key and correct key name
+def get_result_dict():
+    # loop through all items of dictionary with values
+    for key, values in values_dict.items():
+        # loop through all items of dictionary with indexes
+        for index_key, index_values in index_dict.items():
+            # if the keys from values_dict and index_dict match and number of values from values_dict = 1
+            if key == index_key and len(values) == 1:
+                # call function add_key_value with parameters
+                result_dict.update({key: max(values)})
+            # else if the keys from values_dict and index_dict match and number of values from values_dict > 1
+            elif key == index_key and len(values) > 1:
+                # get real index for max values for each key
+                value_index = values.index(max(values))
+                # call function add_key_value with parameters
+                result_dict.update({key + str('_') + str(index_values[value_index] + 1): max(values)})
+    return result_dict
 
-# get max values for each key and form the correct key name
-# loop through all items of dictionary with values
-for key, values in values_dict.items():
-    # loop through all items of dictionary with indexes
-    for index_key, index_values in index_dict.items():
-        # if the keys from values_dict and index_dict match and number of values from values_dict = 1
-        if key == index_key and len(values) == 1:
-            # call function add_key_value with parameters
-            add_key_value(result_dict, key, max(values))
-        # else if the keys from values_dict and index_dict match and number of values from values_dict > 1
-        elif key == index_key and len(values) > 1:
-            # get real index for max values for each key
-            value_index = values.index(max(values))
-            # call function add_key_value with parameters
-            add_key_value(result_dict, key + str('_') + str(index_values[value_index] + 1), max(values))
-
-# print dictionary with result
-print("result_dict: ", result_dict)
+# call function get_result_dict and print dictionary with result
+print("result_dict: ", get_result_dict())

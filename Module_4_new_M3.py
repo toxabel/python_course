@@ -21,25 +21,24 @@ hw_string = r"""homEwork:
 
   last iz TO calculate nuMber OF Whitespace characteRS in this Tex. caREFULL, not only Spaces, but ALL whitespaces. I got 87."""
 
-# number of whitespace characters
-# initialize a variable with defined value = 0
-num_spaces = 0
-# loop through all the characters in the homework sentence
-for i in hw_string:
-    # check if the symbol is space if yes add 1 to variable
-    if i.isspace() == True:
-        num_spaces = num_spaces + 1
-# print number of whitespace
-print("Number of whitespace characters:", num_spaces)
+# define function that return number of whitespace characters in current text
+def number_whitespace(text_string):
+    # initialize a variable with defined value = 0
+    num_spaces = 0
+    # loop through all the characters in the text sting
+    for i in text_string:
+        # check if the symbol is space if yes add 1 to variable
+        if i.isspace() == True:
+            num_spaces = num_spaces + 1
+    return num_spaces
 
-#define finction that return string after re.sub function
-def sub_function(reg_expr, replace_param, entry_str):
-    return re.sub(reg_expr, replace_param, entry_str)
+# print number of whitespace
+print("Number of whitespace characters:", number_whitespace(hw_string))
 
 
 # fix spelling mistakes
 # find all the words "iz" using regular expressions and replace them with "is" in a homework paragraph
-hw_with_correct_is = sub_function(r"(?i)iz\b", 'is', hw_string)
+hw_with_correct_is = re.sub(r"(?i)iz\b", 'is', hw_string)
 
 
 # normalized text from letter cases point of view
@@ -49,7 +48,7 @@ def normalize(match_str):
 
 # find sentences in a homework paragraph using regular expressions and replace them with new versions
 # obtained after method 'capitalize' from function normalize
-hw_normalized = sub_function(r"[A-Z|a-z][^\.!?:]*[\.!?:]", normalize, hw_with_correct_is)
+hw_normalized = re.sub(r"[A-Z|a-z][^\.!?:]*[\.!?:]", normalize, hw_with_correct_is)
 
 
 # creating a new sentence from the last words and add it to the end of this paragraph

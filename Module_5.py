@@ -1,76 +1,95 @@
-# Create a tool, which will do user generated news feed:
-# 1.User select what data type he wants to add
-# 2.Provide record type required data
-# 3.Record is published on text file in special format
-#
-# You need to implement:
-# 1.News – text and city as input. Date is calculated during publishing.
-# 2.Privat ad – text and expiration date as input. Day left is calculated during publishing.
-# 3.Your unique one with unique publish rules.
-#
-# Each new record should be added to the end of file. Commit file in git for review.
+# import the date and timedelta modules
+from datetime import date, timedelta
 
-from datetime import date
-
-
+# define main class that start conversation with user
 class MainMessage:
+    # class constructor
     def __init__(self):
         pass
 
+    # define method that gets type of message from user, creates an object of the class and calls its method "executor"
     def message_type(self):
 
+        # get user's answer and save it in variable "user variant"
         user_variant = input("Choose message type: 1 - Joke, 2 - News, 3 - Ad \nYour variant: ")
 
+        # creates an object of the class and calls its method "executor"
         o = Orchestrator(user_variant)
         o.executor()
 
-
+# define class that creates objects of various classes and runs the appropriate methods according to the user's choice
 class Orchestrator:
+    # class constructor and class attribute
     def __init__(self, user_variant):
         self.uv = user_variant
 
+    # define methode that create objects of various classes by condition
     def executor(self):
         if self.uv == str(1):
-            user_text = self.text()
-            j = Joke("Joke", user_text)
-            j.save_message_name()
-            j.save_message()
+            j = Joke("Joke")
+            j.publish_txt()
         elif self.uv == str(2):
-            user_text = self.text()
-            n = News("News", user_text)
-            n.save_message_name()
-            n.save_message()
-            n.save_date()
+            n = News("News")
+            n.publish_txt()
         elif self.uv == str(3):
-            pass
+            a = Ad("Ad")
+            a.publish_txt()
 
+
+# define parent class Joke that publish jokes in document
+class Joke:
+    # class constructor and class attribute
+    def __init__(self, message_name):
+        self.mn = message_name
+
+    # define method that get message text from user by input console
     def text(self):
         user_text = input("Your Text: ")
         return user_text
 
+    # define method that prepares message content in one variable
+    def prepare_content(self):
+        content = "\n" + self.mn + "\n" + self.text() + "\n"
+        return content
 
-class Joke:
-    def __init__(self, message_name, user_text):
-        self.ut = user_text
-        self.mn = message_name
-
-    def save_message_name(self):
+    # define method that publish message content by adding text to the end of the txt document
+    def publish_txt(self):
+        to_publish = self.prepare_content()
         with open('message_column.txt', 'a') as f:
-            f.write("\n" + self.mn)
-
-    def save_message(self):
-        with open('message_column.txt', 'a') as f:
-            f.write("\n" + self.ut + "\n")
+            f.write(to_publish)
 
 
+# define child class News that publish news in document
 class News(Joke):
-    def save_date(self):
-        carent_date = date.today()
-        with open('message_column.txt', 'a') as f:
-            f.write(str(carent_date) + "\n")
 
-class Ad(News):
-    pass
+    # define method that gets city name from user by input console
+    def get_city_name(self):
+        user_city = input("Your City Location: ")
+        return user_city
 
+    # override method that prepares message content in one variable according to the template for news messages
+    def prepare_content(self):
+        carrent_date = date.today()
+        content = "\n" + self.mn + "\n" + self.text() + "\n" + str(self.get_city_name()) + ", " + str(carrent_date) + "\n"
+        return content
+
+# define child class Ad that publish user advertisement in document
+class Ad(Joke):
+
+    # define method that gets number of days that Ad will be available from user by input console
+    def day_number(self):
+        user_days_number = input("Specify how many days the Ad will be available: ")
+        return user_days_number
+
+    # override the method that prepares the content of the message in one variable
+    def prepare_content(self):
+        carrent_date = date.today()
+        days_number = int(self.day_number())
+        end_date = carrent_date + timedelta(days=days_number)
+        content = "\n" + self.mn + "\n" + self.text() + "\n" + "Actual until: " + str(end_date) + ", " \
+                  + str(days_number) + " days left" + "\n"
+        return content
+
+# creates object of the  main class and calls method "message_type" that start conversation with user
 b = MainMessage
 b.message_type(0)

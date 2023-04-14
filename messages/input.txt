@@ -1,0 +1,6 @@
+Joke|first JoKe|
+News|fiRSt NEWS|SoPOT|
+Ad|firsT aD|10
+Ad|SECONd Ad|10
+News|sEcond news|gdaNsk|
+Joke|sECOND joKE|

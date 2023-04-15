@@ -22,11 +22,9 @@ def parse_manual_input():
 
 # define function that parses text from txt file
 def parse_txt_file():
-    # opening the file in read mode
-    my_file = open("../input.txt", "r")
-
-    # reading the file
-    data = my_file.read()
+    # opening the file and read data
+    with open("input.txt", "r") as txtfile:
+        data = txtfile.read()
 
     # splitting the text it further when '\n' is seen.
     list_data = data.split('\n')

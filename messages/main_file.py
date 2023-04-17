@@ -11,9 +11,6 @@ if __name__ == '__main__':
     if message_source == 1:
         orchestrator.parse_manual_input()
 
-        report_csv.words_report()
-        report_csv.letters_report()
-
     # call function from the orchestrator module to process txt file parsing, delete this file in the end
     # and call reports functions
     elif message_source == 2:
@@ -21,5 +18,6 @@ if __name__ == '__main__':
 
         os.remove("input.txt")
 
-        report_csv.words_report()
-        report_csv.letters_report()
+    # call reports functions from the report_csv module
+    report_csv.words_report()
+    report_csv.letters_report()

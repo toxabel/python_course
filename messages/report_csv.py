@@ -3,7 +3,7 @@ import csv
 from collections import Counter
 
 
-# define function that read data from current txt file
+# define function that read data from message_column.txt file (file with published massages)
 def read_csv_file():
      with open('message_column.txt', 'r') as txtfile:
           txt_data = txtfile.read()

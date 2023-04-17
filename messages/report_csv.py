@@ -4,7 +4,7 @@ from collections import Counter
 
 
 # define function that read data from message_column.txt file (file with published massages)
-def read_csv_file():
+def read_published_massages():
      with open('message_column.txt', 'r') as txtfile:
           txt_data = txtfile.read()
      return txt_data
@@ -13,7 +13,7 @@ def read_csv_file():
 # define function that create words report
 def words_report():
      # get string with lowercase words
-     almost_words = re.sub("[^A-Za-z]", " ", read_csv_file()).lower()
+     almost_words = re.sub("[^A-Za-z]", " ", read_published_massages()).lower()
 
      # splits the string into words and puts it in a list without spaces
      list_almost_words = almost_words.split(" ")
@@ -22,10 +22,12 @@ def words_report():
      # count how many times words occurs in a string and put the results into a dictionary
      unique_words = Counter(list_words)
 
-     # iterate over all key-values from a dictionary and write them to a CSV document
-     for key, values in unique_words.items():
-          with open('words_report.csv', 'a', newline='') as csvfile:
-               writer = csv.writer(csvfile, delimiter='-')
+     # call the context manager and define the parameters for writing data to a CSV document
+     with open('words_report.csv', 'w', newline='') as csvfile:
+          writer = csv.writer(csvfile, delimiter='-')
+
+          # iterate over all key-values from a dictionary and write them to a CSV document
+          for key, values in unique_words.items():
                writer.writerow([key, values])
 
      print('Words report ready')
@@ -34,15 +36,15 @@ def words_report():
 # define function that create letters report
 def letters_report():
      # get string with all letters as is and string with all letters in lowercase
-     origin_letters = re.sub("[^A-Za-z]", "", read_csv_file())
-     all_letters_lower = re.sub("[^A-Za-z]", "", read_csv_file()).lower()
+     origin_letters = re.sub("[^A-Za-z]", "", read_published_massages())
+     all_letters_lower = re.sub("[^A-Za-z]", "", read_published_massages()).lower()
 
      # count how many times letters occur in strings and put the results into dictionaries
      dict_origin_letters = Counter(origin_letters)
      dict_all_letters_lower = Counter(all_letters_lower)
 
      # call the context manager and define the parameters for writing data to a CSV document
-     with open('letters_report.csv', 'a', newline='') as csvfilel:
+     with open('letters_report.csv', 'w', newline='') as csvfilel:
           columns_names = ['letter', 'count_all', 'count_uppercase', 'percentage']
           writer = csv.DictWriter(csvfilel, fieldnames=columns_names)
           writer.writeheader()

@@ -1,0 +1,24 @@
+<MESSAGES>
+    <MESSAGE name="Joke">
+        <TEXT>i am about to show YOU some real lIfe XML—just like you had see out tHEre in the wilD</TEXT>
+    </MESSAGE>
+    <MESSAGE name="News">
+        <TEXT>now, the queStioN is how to deal with more complex data structures</TEXT>
+        <CITY>gdANSK</CITY>
+    </MESSAGE>
+    <MESSAGE name="Joke">
+        <TEXT>jSON is supposed to bE readable by anyone who’s used a C-style language</TEXT>
+    </MESSAGE>
+    <MESSAGE name="News">
+        <TEXT>all you nEeD to do is represent your data in Terms of the built-in types jSon already undeRstands</TEXT>
+        <CITY>lOnDon</CITY>
+    </MESSAGE>
+    <MESSAGE name="Ad">
+        <TEXT>fine, ruN tHe file in iNteractiVe moDe and test it FOR yourself</TEXT>
+        <AVAILABILITY>4</AVAILABILITY>
+    </MESSAGE>
+    <MESSAGE name="Ad">
+        <TEXT>all you need to do is filter tOdOs and wriTE the resulting list to a file</TEXT>
+        <AVAILABILITY>7</AVAILABILITY>
+    </MESSAGE>
+</MESSAGES>

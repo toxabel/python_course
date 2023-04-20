@@ -1,0 +1,32 @@
+{
+	"messages": [
+		{
+			"name": "Joke",
+			"text": "i am about to show YOU some real lIfe JSON—just like you had see out tHEre in the wilD"
+		},
+		{
+			"name": "News",
+			"text": "now, the queStioN is how to deal with more complex data structures",
+			"city": "mINsk"
+		},
+		{
+			"name": "Ad",
+			"text": "all you need to do is filter tOdOs and wriTE the resulting list to a file",
+			"availability": "5"
+		},
+		{
+			"name": "Ad",
+			"text": "fine, run the file in interactive mode and test it for yourself.",
+			"availability": "2"
+		},
+		{
+			"name": "Joke",
+			"text": "jSON is supposed to bE readable by anyone who’s used a C-style language"
+		},
+		{
+			"name": "News",
+			"text": "all you nEeD to do is represent your data in Terms of the built-in types jSon already undeRstands",
+			"city": "GdyNia"
+		}
+	]
+}
